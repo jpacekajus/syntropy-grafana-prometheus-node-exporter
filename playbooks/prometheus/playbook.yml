@@ -1,0 +1,52 @@
+---
+ - hosts: all
+   become: true
+   tasks:
+     - name: Install aptitude using apt
+       apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+ 
+     - name: Install required system packages
+       apt: name={{ item }} state=latest update_cache=yes
+       loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools']
+ 
+     - name: Add Docker GPG apt Key
+       apt_key:
+         url: https://download.docker.com/linux/ubuntu/gpg
+         state: present
+ 
+     - name: Add Docker Repository
+       apt_repository:
+         repo: deb https://download.docker.com/linux/ubuntu focal stable
+         state: present
+ 
+     - name: Update apt and install docker-ce
+       apt: update_cache=yes name=docker-ce state=latest
+ 
+     - name: Install Docker Module for Python
+       pip:
+         name: docker
+
+     - name: Create a network with custom IPAM config
+       docker_network:
+         name: prometheus-network
+         ipam_options:
+           subnet: 172.10.0.0/24
+           gateway: 172.10.0.254
+
+     - copy:
+         src: files/prometheus.yml
+         dest: /etc/prometheus.yml
+         owner: root
+         group: root
+         mode: 0644
+ 
+     - name: Deploy Prometheus container
+       docker_container:
+         name: prometheus1
+         image: prom/prometheus
+         state: started
+         restart: yes
+         volumes: /etc/prometheus.yml:/etc/prometheus/prometheus.yml
+         networks:
+           - name: prometheus-network
+             ipv4_address: "172.10.0.100"
