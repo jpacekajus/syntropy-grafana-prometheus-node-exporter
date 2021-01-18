@@ -1,0 +1,42 @@
+---
+- name: Deploy Grafana
+  become: true
+  hosts: web_nodes
+  vars:
+    subnet: 172.1.0.0/24
+    prometheus_ip: 172.2.0.2
+    cloud_provider: '1'
+    api_key: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    domain: 'grafana.mydomain.com'
+    email: 'my@email.com'
+    agent_name: 'grafana'
+    admin_user: 'admin'
+    admin_password: 'P4$$worD!'
+  roles:
+    - grafana
+    - syntropy-agent
+
+- name: Deploy Prometheus
+  become: true
+  hosts: prometheus_nodes
+  vars:
+    subnet: 172.2.0.0/24
+    cloud_provider: "1"
+    api_key: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    agent_name: "prometheus"
+    exporters: "{{ groups['exporter_nodes'] }}"
+  roles:
+    - prometheus
+    - syntropy-agent
+
+- name: Deploy Node Exporter
+  become: true
+  hosts: exporter_nodes
+  vars:
+    subnet: 172.3.{{ play_hosts.index(inventory_hostname) | int + 1 }}.0/24
+    cloud_provider: "1"
+    api_key: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    agent_name: "exporter"
+  roles:
+    - node-exporter
+    - syntropy-agent

@@ -1,7 +1,7 @@
 ---
- - hosts: all
-   become: true
-   tasks:
+# - hosts: all
+#   become: true
+#   tasks:
      - name: Install aptitude using apt
        apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
  
@@ -28,17 +28,24 @@
 
      - name: Create a network with custom IPAM config
        docker_network:
-         name: prometheus-network
+         name: syntropynet
          ipam_options:
-           subnet: 172.10.0.0/24
-           gateway: 172.10.0.254
+           subnet: '{{ subnet }}'
 
-     - copy:
-         src: files/prometheus.yml
+     - name: Generate Prometheus config
+       template:
+         src: templates/prometheus.j2
          dest: /etc/prometheus.yml
          owner: root
          group: root
-         mode: 0644
+         mode: '0644'
+
+#     - copy:
+#         src: files/prometheus.yml
+#         dest: /etc/prometheus.yml
+#         owner: root
+#         group: root
+#         mode: 0644
  
      - name: Deploy Prometheus container
        docker_container:
@@ -47,6 +54,10 @@
          state: started
          restart: yes
          volumes: /etc/prometheus.yml:/etc/prometheus/prometheus.yml
+         purge_networks: yes
          networks:
-           - name: prometheus-network
-             ipv4_address: "172.10.0.100"
+           - name: syntropynet
+             #ipv4_address: '{{ prometheus_ip }}'
+         env:
+             SYNTROPY_PROVIDER: '{{ cloud_provider }}'
+             SYNTROPY_TAGS: prometheus

@@ -1,7 +1,7 @@
 ---
- - hosts: all
-   become: true
-   tasks:
+# - hosts: all
+#   become: true
+#   tasks:
      - name: Install aptitude using apt
        apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
  
@@ -28,17 +28,16 @@
 
      - name: Create a network with custom IPAM config
        docker_network:
-         name: node-exporter-network
+         name: syntropynet
          ipam_options:
-           subnet: 172.11.0.0/24
-           gateway: 172.11.0.254
+           subnet: '{{ subnet }}'
 
-     - name: Deploy Prometheus container
+     - name: Deploy Node Exporter container
        docker_container:
          name: node_exporter
          image: quay.io/prometheus/node-exporter
          state: started
          restart: yes
+         purge_networks: yes
          networks:
-           - name: node-exporter-network
-             ipv4_address: "172.11.0.100"
+           - name: syntropynet
