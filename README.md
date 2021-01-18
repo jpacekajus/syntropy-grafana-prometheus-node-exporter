@@ -57,7 +57,7 @@ prometheus1
 grafana1
 
 ```
-Update the variables in main.yml at the top directory:
+Update the variables in main.yml at the top directory (if node-exporter subnet beggining is changed, then change roles/prometheus/templates/prometheus.j2 accordingly):
 ```
 ...
 - name: Deploy Grafana
