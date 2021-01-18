@@ -2,6 +2,8 @@
 
 These ansible-playbooks and related files are for semi-automated monitoring stack (Grafana, Prometheus, Node-Exporter) deployment utilizing simplicity of network configuration provided by Syntropy agent and command line utilities.
 
+The best part is that these playbooks will allow you to easily scale your monitoring setup for multiple remote node-exporters. It will auto-generate Prometheus scrape config based on node exporter nodes in your inventory.
+
 ## What is Syntropy?
 
 Syntropy stack is software which lets you to easily establish VPN connections between remote endpoints, implement network-as-a-code approach and to avoid complex and inneficient newtork firewall and routing setups.
