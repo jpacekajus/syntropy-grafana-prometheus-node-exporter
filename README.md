@@ -46,7 +46,8 @@ grafana1
 
 ```
 Update the variables in main.yml at the top directory:
-```...
+```
+...
 - name: Deploy Grafana
   become: true
   hosts: web_nodes
