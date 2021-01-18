@@ -2,16 +2,24 @@
 
 These ansible-playbooks and related files are for semi-automated monitoring stack (Grafana, Prometheus, Node-Exporter) deployment utilizing simplicity of network configuration provided by Syntropy agent and command line utilities.
 
-
 # What is Syntropy?
 
 Syntropy stack is software which lets you to easily establish VPN connections between remote endpoint, implement network-as-a-code approach and to avoid complex and inneficient newtork firewall and routing setups.
 
+
+# Requirements
+
+Debian/Ubuntu based distro and dependencies installed
+
 # Dependencies
+
+These are required for Syntropy network management via CLI:
 
 ```
 apt install python3
 apt install python3-pip
+pip install git+https://github.com/SyntropyNet/syntropy-cli#egg=syntropycli
+pip install git+https://github.com/SyntropyNet/syntropy-nac#egg=syntropynac
 ```
 
 # How to run
