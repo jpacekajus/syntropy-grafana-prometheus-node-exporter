@@ -143,4 +143,4 @@ Visit the Platform WEB UI to check you network:
 
 https://platform.syntropystack.com
 
-# DONE!
+That's it! You can try out your newly created monitoring stack which is based on secure and fast Syntropy network! Just visit the domain URL you provided as variable in main.yml!
