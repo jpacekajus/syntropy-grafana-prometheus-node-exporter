@@ -14,4 +14,6 @@ scrape_configs:
     static_configs:
 {% for target in exporters %}
     - targets: ['172.3.{{ loop.index }}.2:9100']
+      labels:
+        instance: {{ target }}
 {% endfor %}

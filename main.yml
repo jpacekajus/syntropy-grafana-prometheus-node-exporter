@@ -6,13 +6,13 @@
     subnet: 172.1.0.0/24
     prometheus_ip: 172.2.0.2
     cloud_provider: '1'
-    api_key: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    api_key: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     domain: 'grafana.mydomain.com'
     email: 'my@email.com'
     agent_name: 'grafana'
     admin_user: 'admin'
-    admin_password: 'P4$$worD!'
-  roles:
+    admin_password: 'P4$$worD!#$%'
+  roles:                
     - grafana
     - syntropy-agent
 
@@ -22,7 +22,7 @@
   vars:
     subnet: 172.2.0.0/24
     cloud_provider: "1"
-    api_key: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    api_key: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     agent_name: "prometheus"
     exporters: "{{ groups['exporter_nodes'] }}"
   roles:
@@ -35,7 +35,7 @@
   vars:
     subnet: 172.3.{{ play_hosts.index(inventory_hostname) | int + 1 }}.0/24
     cloud_provider: "1"
-    api_key: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    api_key: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     agent_name: "exporter"
   roles:
     - node-exporter
