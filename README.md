@@ -2,16 +2,16 @@
 
 These ansible-playbooks and related files are for semi-automated monitoring stack (Grafana, Prometheus, Node-Exporter) deployment utilizing simplicity of network configuration provided by Syntropy agent and command line utilities.
 
-# What is Syntropy?
+## What is Syntropy?
 
 Syntropy stack is software which lets you to easily establish VPN connections between remote endpoints, implement network-as-a-code approach and to avoid complex and inneficient newtork firewall and routing setups.
 
 
-# Requirements
+## Requirements
 
 Debian/Ubuntu based distro and dependencies installed and ansible server configured.
 
-# Dependencies
+## Dependencies
 
 These are required for Syntropy network management via CLI:
 
@@ -23,7 +23,7 @@ pip install git+https://github.com/SyntropyNet/syntropy-cli#egg=syntropycli
 pip install git+https://github.com/SyntropyNet/syntropy-nac#egg=syntropynac
 ```
 
-# How to run
+## How to run
 
 Get it running by 3 steps explained below:
 
@@ -31,7 +31,7 @@ Get it running by 3 steps explained below:
 2) Run asible-playbook
 3) Setup Syntropy Network
 
-# Step1 - code preparation
+### Step1 - code preparation
 
 Simply clone the code repository to your ansible server:
 ```
@@ -68,11 +68,11 @@ Update the variables in main.yml at the top directory:
     email: 'my@email.com'
 ...
 ```
-# Step2 - running ansible playbook
+### Step2 - running ansible playbook
 
 Run the playbook:
 ```
 ansible-playbook main.yaml
 ```
-# Step3 - setting up Syntropy network
+### Step3 - setting up Syntropy network
 
