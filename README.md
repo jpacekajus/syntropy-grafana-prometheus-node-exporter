@@ -76,3 +76,69 @@ ansible-playbook main.yaml
 ```
 ### Step3 - setting up Syntropy network
 
+Login to Syntropy using CLI
+
+```
+export SYNTROPY_API_SERVER=https://controller-prod-server.syntropystack.com
+syntropyctl login your@account.com
+Password: **********
+```
+Save the token:
+```
+export SYNTROPY_API_TOKEN=QWERTYUIOPASLDFDNGGMWJRDNSKFHSKKSNNS
+```
+Get enpoint details:
+```
+get-endpoints
+```
+Update (ids, network and endpoint names) the network file to represent your Syntropy Network configuration:
+```
+cat networks/grafana-prom-exporter.yml
+
+connections:
+  exporter1:
+    connect_to:
+      prometheus1:
+        id: 625
+        services: [prometheus1]
+        type: endpoint
+    id: 624
+    services: [node_exporter]
+    state: present
+    type: endpoint
+  grafana1:
+    connect_to:
+      prometheus1:
+        id: 625
+        services: [prometheus1]
+        type: endpoint
+    id: 623
+    services: [grafana]
+    state: present
+    type: endpoint
+  prometheus1:
+    connect_to:
+      exporter2:
+        id: 676
+        services: [node_exporter]
+        type: endpoint
+    id: 625
+    services: [prometheus1]
+    state: present
+    type: endpoint
+id: 339
+name: monitoring
+state: present
+topology: P2P
+
+```
+Use Syntropy NAC to configure the network for you:
+```
+syntropynac configure-networks networks/grafana-prom-exporter.yml
+```
+
+Visit the Platform WEB UI to check you network: 
+
+https://platform.syntropystack.com
+
+# DONE!
