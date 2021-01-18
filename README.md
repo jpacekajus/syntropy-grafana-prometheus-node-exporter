@@ -9,13 +9,14 @@ Syntropy stack is software which lets you to easily establish VPN connections be
 
 # Requirements
 
-Debian/Ubuntu based distro and dependencies installed
+Debian/Ubuntu based distro and dependencies installed and ansible server configured.
 
 # Dependencies
 
 These are required for Syntropy network management via CLI:
 
 ```
+apt install ansible
 apt install python3
 apt install python3-pip
 pip install git+https://github.com/SyntropyNet/syntropy-cli#egg=syntropycli
