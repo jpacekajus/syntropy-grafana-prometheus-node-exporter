@@ -25,6 +25,14 @@ pip install git+https://github.com/SyntropyNet/syntropy-nac#egg=syntropynac
 
 # How to run
 
+Get it running by 3 steps explained below:
+
+1) Prepare the code and variables
+2) Run asible-playbook
+3) Setup Syntropy Network
+
+# Step1 - code preparation
+
 Simply clone the code repository to your ansible server:
 ```
 git clone https://github.com/jpacekajus/syntropy-grafana-prometheus-node-exporter.git
@@ -60,7 +68,11 @@ Update the variables in main.yml at the top directory:
     email: 'my@email.com'
 ...
 ```
+# Step2 - running ansible playbook
+
 Run the playbook:
 ```
 ansible-playbook main.yaml
 ```
+# Step3 - setting up Syntropy network
+
