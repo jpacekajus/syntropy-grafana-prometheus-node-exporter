@@ -91,9 +91,9 @@ Save the token:
 ```
 export SYNTROPY_API_TOKEN=QWERTYUIOPASLDFDNGGMWJRDNSKFHSKKSNNS
 ```
-Get enpoint details:
+Get endpoint details:
 ```
-get-endpoints
+syntropyctl get-endpoints
 ```
 Update (ids, network and endpoint names) the network file to represent your Syntropy Network configuration:
 ```
