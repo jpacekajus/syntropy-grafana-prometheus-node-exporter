@@ -1,8 +1,8 @@
 # Syntropy based monitoring stack
 
-These ansible-playbooks and related files are for semi-automated monitoring stack (Grafana, Prometheus, Node-Exporter) deployment utilizing simplicity of network configuration provided by Syntropy agent and command line utilities.
+These ansible-playbooks and related files are for semi-automated monitoring stack (Grafana, Prometheus, node-exporter) deployment utilizing simplicity of network configuration provided by Syntropy agent and command line utilities.
 
-The best part is that these playbooks will allow you to easily scale your monitoring setup for multiple remote node-exporters by automatically creating required non-overlapping docker networks and auto-generating Prometheus scrape config targets (based on your node-exporter ansible hosts in the inventory). It will also provisions Grafana datasource and dashboards to be used with Prometheus and Node Exporter. Therefore you can begin using this monitoring stack out of the box!
+The best part is that these playbooks will allow you to easily scale your monitoring setup for multiple remote node-exporters by automatically creating required non-overlapping docker networks and auto-generating Prometheus scrape config targets (based on your node-exporter ansible hosts in the inventory). It will also provisions Grafana datasource and dashboards to be used with Prometheus and node-exporter. Therefore you can begin using this monitoring stack out of the box!
 
 ## What is Syntropy?
 
