@@ -6,7 +6,7 @@ The best part is that these playbooks will allow you to easily scale your monito
 
 ## What is Syntropy?
 
-Syntropy stack is software which lets you to easily establish VPN connections between remote endpoints, implement network-as-a-code approach and to avoid complex and inneficient newtork firewall and routing setups.
+Syntropy stack is software which lets you to easily establish VPN connections between remote endpoints, implement network-as-a-code approach and to avoid complex and inefficient network firewall and routing setups.
 
 
 ## Requirements
