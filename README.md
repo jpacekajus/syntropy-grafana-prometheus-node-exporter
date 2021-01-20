@@ -1,3 +1,6 @@
+
+<center><img src="images/Diagram.png"></center>
+
 # Syntropy based monitoring stack
 
 These ansible-playbooks and related files are for semi-automated monitoring stack (Grafana, Prometheus, node-exporter) deployment utilizing simplicity of network configuration provided by Syntropy agent and command line utilities.
