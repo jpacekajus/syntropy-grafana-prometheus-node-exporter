@@ -7,6 +7,8 @@ The best part is that these playbooks will allow you to easily scale your monito
 
 All the network traffic is being handled by Syntropy Agent connections - secure encrypted tunnels based on Wireguard. This network scheme is being managed by Syntropy Platform, which allows easily device connections and networks both using CLI and WEB UI.
 
+All the services are running as docker containers inside virtual servers.
+
 <center><img src="images/diagram.png"></center>
 
 
