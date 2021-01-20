@@ -13,6 +13,9 @@ a) Nginx works as proxy for Grafana WEB UI
 b) Grafana datasource is Prometheus
 c) Prometheus scrape targets are node-exporter containers
 ```
+
+This connection configuration can be scaled up to 253 node-exporters with no additional effort or editing.
+
 <center><img src="images/diagram.png"></center>
 
 
