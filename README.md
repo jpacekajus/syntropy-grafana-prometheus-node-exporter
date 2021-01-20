@@ -1,6 +1,4 @@
 
-<center><img src="images/diagram.png"></center>
-
 # Syntropy based monitoring stack
 
 These ansible-playbooks and related files are for semi-automated monitoring stack (Grafana, Prometheus, node-exporter) deployment utilizing simplicity of network configuration provided by Syntropy agent and command line utilities.
@@ -10,8 +8,8 @@ The best part is that these playbooks will allow you to easily scale your monito
 ## What is Syntropy?
 
 Syntropy stack is software which lets you to easily establish VPN connections between remote endpoints, implement network-as-a-code approach and to avoid complex and inefficient network firewall and routing setups.
-
-
+## Diagram
+<center><img src="images/diagram.png"></center>
 ## Requirements
 
 Debian/Ubuntu based distro and dependencies installed and ansible server configured. You will also need to register for Syntropy account here:
