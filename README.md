@@ -5,11 +5,13 @@ These ansible-playbooks and related files are for semi-automated monitoring stac
 
 The best part is that these playbooks will allow you to easily scale your monitoring setup for multiple remote node-exporters by automatically creating required non-overlapping docker networks and auto-generating Prometheus scrape config targets (based on your node-exporter ansible hosts in the inventory). It will also provisions Grafana datasource and dashboards to be used with Prometheus and node-exporter. Therefore you can begin using this monitoring stack out of the box!
 
+<center><img src="images/diagram.png"></center>
+
+
 ## What is Syntropy?
 
 Syntropy stack is software which lets you to easily establish VPN connections between remote endpoints, implement network-as-a-code approach and to avoid complex and inefficient network firewall and routing setups.
-## Diagram
-<center><img src="images/diagram.png"></center>
+
 ## Requirements
 
 Debian/Ubuntu based distro and dependencies installed and ansible server configured. You will also need to register for Syntropy account here:
