@@ -1,5 +1,5 @@
 
-<center><img src="images/Diagram.png"></center>
+<center><img src="images/diagram.png"></center>
 
 # Syntropy based monitoring stack
 
