@@ -28,9 +28,6 @@ Syntropy stack is software which lets you to easily establish VPN connections be
 - Debian/Ubuntu based distro and dependencies installed and ansible server configured. 
 - You will also need to register for Syntropy account here: https://platform.syntropystack.com
 - Wireguard kernel module is required if you are running kernel older than 5.6. More details here: https://docs.syntropystack.com/docs/start-syntropy-agent
-- Domain client hostnames must be compatible with Active Directory - more details at https://docs.microsoft.com/en-us/troubleshoot/windows-server/identity/naming-conventions-for-computer-domain-site-ou
-- Syntropy CLI tool installed
-
 ## Dependencies
 
 These are required for Syntropy network management via CLI:
@@ -40,62 +37,125 @@ apt install ansible
 apt install python3
 apt install python3-pip
 pip install git+https://github.com/SyntropyNet/syntropy-cli#egg=syntropycli
+pip install git+https://github.com/SyntropyNet/syntropy-nac#egg=syntropynac
 ```
 
 ## How to run
 
 Get it running by 3 steps explained below:
 
-1) Register for Syntropy account and get API token and API key.
-2) Prepare the code and variables
-3) Run asible-playbook
+1) Prepare the code and variables
+2) Run asible-playbook
+3) Setup Syntropy Network
 
-### Step1 - Register for Syntropy account and get API token and API key
+### Step1 - code preparation
 
-API key can be created at 
+Simply clone the code repository to your ansible server:
+```
+git clone https://github.com/jpacekajus/syntropy-grafana-prometheus-node-exporter.git
+```
+Update your inventory file accordingly:
+```
+cat /etc/ansible/hosts
+
+[exporter_nodes]
+exporter1
+exporter2
+exporterN
+
+[prometheus_nodes]
+prometheus1
+
+[web_nodes]
+grafana1
+
+```
+Update the variables in main.yml at the top directory (if node-exporter subnet beggining is changed, then change roles/prometheus/templates/prometheus.j2 accordingly):
+```
+...
+- name: Deploy Grafana
+  become: true
+  hosts: web_nodes
+  vars:
+    subnet: 172.1.0.0/24
+    prometheus_ip: 172.2.0.2
+    cloud_provider: '3
+    api_key: MyAPIKey
+    domain: 'grafana.mydomain.com'
+    email: 'my@email.com'
+...
+```
+### Step2 - running ansible playbook
+
+Run the playbook:
+```
+ansible-playbook main.yaml
+```
+### Step3 - setting up Syntropy network
+
+Login to Syntropy using CLI
+
 ```
 export SYNTROPY_API_SERVER=https://controller-prod-server.syntropystack.com
 syntropyctl login your@account.com
 Password: **********
 ```
+Save the token:
+```
+export SYNTROPY_API_TOKEN=QWERTYUIOPASLDFDNGGMWJRDNSKFHSKKSNNS
+```
+Get endpoint details:
+```
+syntropyctl get-endpoints
+```
+Update (ids, network and endpoint names) the network file to represent your Syntropy Network configuration:
+```
+cat networks/grafana-prom-exporter.yml
 
-### Step2 - Update variables
-
-Update the variables in main.yml at the top directory:
+connections:
+  exporter1:
+    connect_to:
+      prometheus1:
+        id: 625
+        services: [prometheus1]
+        type: endpoint
+    id: 624
+    services: [node_exporter]
+    state: present
+    type: endpoint
+  grafana1:
+    connect_to:
+      prometheus1:
+        id: 625
+        services: [prometheus1]
+        type: endpoint
+    id: 623
+    services: [grafana]
+    state: present
+    type: endpoint
+  prometheus1:
+    connect_to:
+      exporter2:
+        id: 676
+        services: [node_exporter]
+        type: endpoint
+    id: 625
+    services: [prometheus1]
+    state: present
+    type: endpoint
+id: 339
+name: monitoring
+state: present
+topology: P2P
 
 ```
-Deploy Samba task:
-cloud provider - cloud provider for samba server check your ID here
-api_key -use API key for Syntropy Platform web UI
-domain - your new domain name in uppercase
-domainpass - your domain admin password
-workgroup - recomended to be subdomain of domain in uppercase
-dns_forwarder - where to forward DNS queries outside of domain
-
-Deploy Syntropy agents task:
-cloud provider - cloud provider for domain client servers, check your ID here
-api_key - use API key for Syntropy Platform web UI (can be same)
-syntropy_network_name - choose a name for your Syntropy network
-
-Setup Syntropy network:
-api_token - API token string you got form prerequisites step 7
-
-Setup domain client task:
-dc_ip - IP address of domain controller (should be same as in Deploy Samba task)
-domain - your new domain name in uppercase
-domainpass - your domain admin password (should be same as in Deploy Samba task)
-workgroup - recomended to be subdomain of domain in uppercase(should be same as in Deploy Samba task)
-allowed_group_name - AD group name which will have acess to newly joined domain client servers
+Use Syntropy NAC to configure the network for you:
+```
+syntropynac configure-networks networks/grafana-prom-exporter.yml
 ```
 
-### Step3 - Run the playbook
-
-Just run this command:
-```
-ansible-playbook main.yaml
-```
 Visit the Platform WEB UI to check you network: 
 
 https://platform.syntropystack.com
 
-That's it! You can try out your newly created your new Samba AD domain and joined clients using secure Syntropy network!
+That's it! You can try out your newly created monitoring stack which is based on secure and fast Syntropy network! Just visit the domain URL you provided as variable in main.yml!
