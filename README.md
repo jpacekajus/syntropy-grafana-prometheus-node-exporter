@@ -1,33 +1,20 @@
-
 # Syntropy based monitoring stack
 
 These ansible-playbooks and related files are for semi-automated monitoring stack (Grafana, Prometheus, node-exporter) deployment utilizing simplicity of network configuration provided by Syntropy agent and command line utilities.
 
 The best part is that these playbooks will allow you to easily scale your monitoring setup for multiple remote node-exporters by automatically creating required non-overlapping docker networks and auto-generating Prometheus scrape config targets (based on your node-exporter ansible hosts in the inventory). It will also provisions Grafana datasource and dashboards to be used with Prometheus and node-exporter. Therefore you can begin using this monitoring stack out of the box!
 
-All the network traffic is being handled by Syntropy Agent connections - secure encrypted tunnels based on Wireguard. This network scheme is being managed by Syntropy Platform, which allows easily device connections and networks both using CLI and WEB UI.
-
-All the services are running as docker containers inside virtual servers:
-```
-a) Nginx works as proxy for Grafana WEB UI
-b) Grafana datasource is Prometheus
-c) Prometheus scrape targets are node-exporter containers
-```
-
-This connection configuration can be scaled up to 253 node-exporters with no additional effort or editing.
-
-<center><img src="images/diagram.png"></center>
-
-
 ## What is Syntropy?
 
 Syntropy stack is software which lets you to easily establish VPN connections between remote endpoints, implement network-as-a-code approach and to avoid complex and inefficient network firewall and routing setups.
 
+
 ## Requirements
 
-- Debian/Ubuntu based distro and dependencies installed and ansible server configured. 
-- You will also need to register for Syntropy account here: https://platform.syntropystack.com
-- Wireguard kernel module is required if you are running kernel older than 5.6. More details here: https://docs.syntropystack.com/docs/start-syntropy-agent
+Debian/Ubuntu based distro and dependencies installed and ansible server configured. You will also need to register for Syntropy account here:
+
+https://platform.syntropystack.com
+
 ## Dependencies
 
 These are required for Syntropy network management via CLI:
